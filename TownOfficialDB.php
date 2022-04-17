@@ -9,7 +9,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Apr 17 14:12:54 2022
- *  Last Modified : <220417.1639>
+ *  Last Modified : <220417.1712>
  *
  *  Description	
  *
@@ -109,7 +109,7 @@ class PlgContentTownOfficialDB extends JPlugin
         switch ($officialParams['office'])
         {
         case 'Selectboard':
-          $replacement = "<p>Laurie DiDonato<br />Gillian Budine<br />Dan Keller</p>";
+          $replacement = "<p>Laurie DiDonato: 2024<br />Gillian Budine 2022<br />Dan Keller 2023</p>";
           break;
         default:
           $replacement = "";
