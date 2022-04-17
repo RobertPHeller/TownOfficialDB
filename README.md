@@ -1,4 +1,5 @@
-# TownOfficialDBSimple Joomla plugin to insert officals into content.
+# TownOfficialDB
+Simple Joomla plugin to insert officals into content.
 
 Syntax -- just include something like this:
 
