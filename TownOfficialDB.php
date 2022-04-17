@@ -9,7 +9,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Apr 17 14:12:54 2022
- *  Last Modified : <220417.1414>
+ *  Last Modified : <220417.1639>
  *
  *  Description	
  *
@@ -42,6 +42,8 @@
  ****************************************************************************/
 
 defined('_JEXEC') or die();
+
+use Joomla\String\StringHelper;
 
 class PlgContentTownOfficialDB extends JPlugin
 {
@@ -76,12 +78,51 @@ class PlgContentTownOfficialDB extends JPlugin
       return;
     }
     
-    // Simple performance check to determine whether bot should process further
-    if (strpos($item->text, 'field') === false)
-    {
-      return;
-    }
+    return $this->_insertOfficials($item->text,$params);
     
   }
+  /**
+    * Insert Officials
+    *
+    * @param   string  &$text    The string to be updated.
+    * @param   mixed   &$params  Additional parameters. Parameter "mode" (integer, default 1)
+    *                             replaces addresses with "mailto:" links if nonzero.
+    *
+    * @return  boolean  True on success.
+    */
+  protected function _insertOfficials(&$text, &$params)
+  {
+    // Simple performance check to determine whether bot should process further.
+    if (StringHelper::strpos($text, '{TownOfficial') === false)
+    {
+      return true;
+    }
+    $pattern = '/{TownOfficial[[:space:]]+([^}]*)}/';
+    while (preg_match($pattern, $text, $regs, PREG_OFFSET_CAPTURE))
+    {
+      file_put_contents("php://stderr","*** PlgContentTownOfficialDB::_insertOfficials: regs is ".print_r($regs,true)."\n");
+      parse_str($regs[1][0],$officialParams);
+      file_put_contents("php://stderr","*** -: officialParams is ".print_r($officialParams,true)."\n");
+      // Dummy for now
+      if (array_key_exists ('office', $officialParams))
+      {
+        switch ($officialParams['office'])
+        {
+        case 'Selectboard':
+          $replacement = "<p>Laurie DiDonato<br />Gillian Budine<br />Dan Keller</p>";
+          break;
+        default:
+          $replacement = "";
+          break;
+        }
+      } else 
+      {
+        $replacement = "";
+      }
+      $text = substr_replace($text, $replacement, $regs[0][1], strlen($regs[0][0]));
+    }
+    return true;
+  }
+  
 }
 
