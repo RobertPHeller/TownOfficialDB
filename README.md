@@ -9,13 +9,14 @@ on the page somewhere and it will be replaced by a paragraph containing the name
 
 For example this fragment:
 
-<h5>Selectboard</h5>
-{TownOfficial office=Selectboard}
+
+`<h5>Selectboard</h5>
+{TownOfficial office=Selectboard}`
 
 Would become:
 
-<h5>Selectboard</h5>
-<p>Laurie DiDonato: 2024<br />Gillian Budine 2022<br />Dan Keller 2023</p>
+`<h5>Selectboard</h5>
+<p>Laurie DiDonato: 2024<br />Gillian Budine 2022<br />Dan Keller 2023</p>`
 
 
 
